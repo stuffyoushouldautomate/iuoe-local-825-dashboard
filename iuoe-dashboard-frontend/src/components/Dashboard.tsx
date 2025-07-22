@@ -9,7 +9,7 @@ import {
   Building2,
   Shield
 } from 'lucide-react';
-import { BLSService, USASpendingService, OSHAService, DOLService } from '../services/api';
+import { BLSService, USASpendingService, OSHAService, DOLService, FREDService } from '../services/api';
 import { DashboardMetrics, LoadingState } from '../types';
 import MetricCard from './MetricCard';
 import DataStatusCard from './DataStatusCard';
@@ -22,7 +22,8 @@ const Dashboard = () => {
     bls: { available: false, error: null },
     spending: { available: false, error: null },
     osha: { available: false, error: null },
-    dol: { available: false, error: null }
+    dol: { available: false, error: null },
+    fred: { available: false, error: null }
   });
 
   useEffect(() => {
@@ -34,11 +35,12 @@ const Dashboard = () => {
 
     try {
       // Fetch all data sources in parallel
-      const [blsData, spendingData, oshaData, dolData] = await Promise.allSettled([
+      const [blsData, spendingData, oshaData, dolData, fredData] = await Promise.allSettled([
         BLSService.fetchNJConstructionData(),
         USASpendingService.fetchNJConstructionContracts(),
         OSHAService.fetchNJInspections(),
-        DOLService.fetchNJLaborData()
+        DOLService.fetchNJLaborData(),
+        FREDService.fetchNJEconomicData()
       ]);
 
       // Update data status
@@ -58,11 +60,15 @@ const Dashboard = () => {
         dol: {
           available: dolData.status === 'fulfilled' && dolData.value.success,
           error: dolData.status === 'rejected' ? dolData.reason : dolData.value.error
+        },
+        fred: {
+          available: fredData.status === 'fulfilled' && fredData.value.success,
+          error: fredData.status === 'rejected' ? fredData.reason : fredData.value.error
         }
       });
 
       // Calculate metrics from available data
-      const calculatedMetrics = calculateMetrics(blsData, spendingData, oshaData, dolData);
+      const calculatedMetrics = calculateMetrics(blsData, spendingData, oshaData, dolData, fredData);
       setMetrics(calculatedMetrics);
 
       setLoading({ isLoading: false, error: null });
@@ -71,13 +77,14 @@ const Dashboard = () => {
     }
   };
 
-  const calculateMetrics = (blsData: any, spendingData: any, oshaData: any, dolData: any) => {
+  const calculateMetrics = (blsData: any, spendingData: any, oshaData: any, dolData: any, fredData: any) => {
     let totalEmployment = 0;
     let employmentGrowth = 0;
     let totalSpending = 0;
     let contractCount = 0;
     let averageWage = 0;
     let unemploymentRate = 0;
+    let inflationRate = 0;
 
     // Calculate from BLS data
     if (blsData.status === 'fulfilled' && blsData.value.success) {
@@ -96,13 +103,24 @@ const Dashboard = () => {
       contractCount = spendingData.value.data.length;
     }
 
+    // Calculate from FRED data
+    if (fredData.status === 'fulfilled' && fredData.value.success) {
+      const cpiData = fredData.value.data.find((s: any) => s.series_id === 'CPIAUCSL');
+      if (cpiData && cpiData.observations && cpiData.observations.length > 1) {
+        const latest = parseFloat(cpiData.observations[0].value);
+        const previous = parseFloat(cpiData.observations[1].value);
+        inflationRate = ((latest - previous) / previous) * 100;
+      }
+    }
+
     return {
       totalEmployment,
       employmentGrowth,
       totalSpending,
       contractCount,
       averageWage,
-      unemploymentRate
+      unemploymentRate,
+      inflationRate
     };
   };
 
@@ -130,7 +148,7 @@ const Dashboard = () => {
       </div>
 
       {/* Data Status Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         <DataStatusCard
           title="BLS Employment Data"
           available={dataStatus.bls.available}
@@ -154,6 +172,12 @@ const Dashboard = () => {
           available={dataStatus.dol.available}
           error={dataStatus.dol.error}
           icon={Building2}
+        />
+        <DataStatusCard
+          title="FRED Economic Data"
+          available={dataStatus.fred.available}
+          error={dataStatus.fred.error}
+          icon={TrendingUp}
         />
       </div>
 
@@ -182,9 +206,9 @@ const Dashboard = () => {
             color="purple"
           />
           <MetricCard
-            title="Average Hourly Wage"
-            value={`$${metrics.averageWage.toFixed(2)}`}
-            change={0}
+            title="Inflation Rate (CPI)"
+            value={`${metrics.inflationRate.toFixed(1)}%`}
+            change={metrics.inflationRate}
             icon={TrendingUp}
             color="orange"
           />
@@ -211,18 +235,18 @@ const Dashboard = () => {
         </div>
 
         <div className="card">
-          <h3 className="text-lg font-semibold mb-4">NJ Federal Contract Spending</h3>
-          {dataStatus.spending.available ? (
+          <h3 className="text-lg font-semibold mb-4">Economic Indicators</h3>
+          {dataStatus.fred.available ? (
             <Chart
-              type="bar"
-              data={[]} // Will be populated with real USA Spending data
-              title="Contract Spending"
+              type="line"
+              data={[]} // Will be populated with real FRED data
+              title="Economic Indicators"
             />
           ) : (
             <div className="error-card">
               <XCircle className="h-8 w-8 text-red-500 mb-2" />
-              <p className="text-red-700">USA Spending data not available</p>
-              <p className="text-sm text-red-600 mt-1">{dataStatus.spending.error}</p>
+              <p className="text-red-700">FRED data not available</p>
+              <p className="text-sm text-red-600 mt-1">{dataStatus.fred.error}</p>
             </div>
           )}
         </div>

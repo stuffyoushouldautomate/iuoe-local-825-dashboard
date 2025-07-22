@@ -28,6 +28,14 @@ const APISetupPage = () => {
       free: true
     },
     {
+      name: 'FRED API Key',
+      key: '0108976b66b9b710f375d61296c78dcd',
+      status: 'configured',
+      description: 'Federal Reserve Economic Data - Economic indicators (CPI, PPI, GDP, Interest Rates)',
+      url: 'https://fred.stlouisfed.org/docs/api/fred/',
+      free: true
+    },
+    {
       name: 'USA Spending API',
       key: 'No key required',
       status: 'configured',
@@ -143,6 +151,10 @@ const APISetupPage = () => {
             <CheckCircle className="h-5 w-5 text-green-500" />
             <span className="text-sm">DOL Labor Data - Working</span>
           </div>
+          <div className="flex items-center space-x-3">
+            <CheckCircle className="h-5 w-5 text-green-500" />
+            <span className="text-sm">FRED Economic Data - Working</span>
+          </div>
         </div>
       </div>
 
@@ -164,6 +176,10 @@ const APISetupPage = () => {
           <div className="bg-orange-50 p-4 rounded-lg">
             <h4 className="font-semibold text-orange-800 mb-2">DOL (Department of Labor)</h4>
             <p className="text-orange-700 text-sm">NJ labor market and employment data</p>
+          </div>
+          <div className="bg-indigo-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-indigo-800 mb-2">FRED (Federal Reserve Economic Data)</h4>
+            <p className="text-indigo-700 text-sm">Economic indicators: CPI, PPI, GDP, Interest Rates</p>
           </div>
         </div>
       </div>

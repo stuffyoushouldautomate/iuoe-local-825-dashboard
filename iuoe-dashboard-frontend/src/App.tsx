@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import EmploymentPage from './components/EmploymentPage';
 import SpendingPage from './components/SpendingPage';
 import SafetyPage from './components/SafetyPage';
+import EconomicPage from './components/EconomicPage';
 import APISetupPage from './components/APISetupPage';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/employment" element={<EmploymentPage />} />
             <Route path="/spending" element={<SpendingPage />} />
             <Route path="/safety" element={<SafetyPage />} />
+            <Route path="/economic" element={<EconomicPage />} />
             <Route path="/api-setup" element={<APISetupPage />} />
           </Routes>
         </main>

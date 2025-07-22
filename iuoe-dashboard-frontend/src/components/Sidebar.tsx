@@ -6,7 +6,8 @@ import {
   DollarSign, 
   Shield, 
   Settings,
-  Building2
+  Building2,
+  TrendingUp
 } from 'lucide-react';
 
 const Sidebar = () => {
@@ -17,6 +18,7 @@ const Sidebar = () => {
     { path: '/employment', icon: Users, label: 'Employment & Wages' },
     { path: '/spending', icon: DollarSign, label: 'Federal Spending' },
     { path: '/safety', icon: Shield, label: 'Safety & OSHA' },
+    { path: '/economic', icon: TrendingUp, label: 'Economic Indicators' },
     { path: '/api-setup', icon: Settings, label: 'API Setup' },
   ];
 

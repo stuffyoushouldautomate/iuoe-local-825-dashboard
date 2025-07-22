@@ -11,7 +11,8 @@ import {
 const API_CONFIG = {
   BLS_API_KEY: "79129dd32b5a4e1296cff5eec19d598c",
   DOL_API_KEY: "2KZ-OoBMvNjt8ZLKRBTh1tOqfCjnx5x3mruYKvIwnSY",
-  OSHA_API_KEY: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFhODI4ZDIzMWIwNmIxMzdjNjU3YWVhMjdiNmE2YjUwZDBmYzI2MTAyNThmNjI4YjcwOGQ5Yzk0MTZlODUxODJjMzIxYjZkZjRmMDBhMjBiIn0.eyJhdWQiOiIwMmMzZDM3NC1iMDI3LTQ4YjItOGMyYS0xNjc4NmQ3ZTBkMjgiLCJqdGkiOiJhYTgyOGQyMzFiMDZiMTM3YzY1N2FlYTI3YjZhNmI2YjUwZDBmYzI2MTAyMjU4ZjYyOGI3MDhkOWM5NDE2ZTg1MTgyYzMyMWI2ZGY0ZjAwYTIwYiIsImlhdCI6MTc0NjIxNDcxMywibmJmIjoxNzQ2MjE0NzEzLCJleHAiOjE3NDkyMTQ3MTMuNTQ2MDMxLCJzdWIiOiIzNTk2MDgiLCJzY29wZSI6WyJhdXRoZW50aWNhdGVkIl19.v1EOhdX9vnqcye8MAfbhdBkKqWkZZ0g_RpQFmoA1C9cpKja5qC-Z7tBHmNC2HG_VpKKY-5Lzj5plnN4ZboU-jfUDWNVEbo9X63ClumlVNLZNGKa5rcuc2VKwAnB7sG-f4N_Ov7hZ2KV8B22R5n9722BxqkCgk8hGT7IVuOhPf8inQTKa_ly1KrK8SmKBnyeOu43eXUV0_mBxdgU4BArWiuaK6QKT6XQjx5kNA9LfM9d_lqqRDVLLOpscQdBKLuhEw-ZvyHz95-2MXXNEwBG4JOf_zG00HJX1xefl1wBC7Y4zQACmMwpLQkCvyaABJXldD6yo7Mn7lVBAnFXAxs5sm3jLGHqwu_Y1uEYlPT2XvnqFzq54CcvJwMCG4tRipmS3dOSLB0-gx2lngjXuagQkafFEqYY9txMdEejF0CsyBqiJ0Yft6ah-qme769ytBRCQp6Y-YEwcJ6aT5paR54flOUFM5LhZ8f8ypuNt2wYz-6q8B1haPZ2jdRyc-65EFN4G_qATJJCAIc4Wa8Xx07COe_pcKCmMQ6TvhLXzDiqWo_QI-gK3jeCeCvG6CaRdVbIyafX16ZXNqQYn3Lwkpz08Rki7SdrQt-WEvMCbC8XzCWnAJFaCl3es6haVszcETRKSnOgjrKR6bwrufgSKQ74p94pcA6olTcxNKjvZEpAFGow"
+  OSHA_API_KEY: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFhODI4ZDIzMWIwNmIxMzdjNjU3YWVhMjdiNmE2YjUwZDBmYzI2MTAyNThmNjI4YjcwOGQ5Yzk0MTZlODUxODJjMzIxYjZkZjRmMDBhMjBiIn0.eyJhdWQiOiIwMmMzZDM3NC1iMDI3LTQ4YjItOGMyYS0xNjc4NmQ3ZTBkMjgiLCJqdGkiOiJhYTgyOGQyMzFiMDZiMTM3YzY1N2FlYTI3YjZhNmI2YjUwZDBmYzI2MTAyMjU4ZjYyOGI3MDhkOWM5NDE2ZTg1MTgyYzMyMWI2ZGY0ZjAwYTIwYiIsImlhdCI6MTc0NjIxNDcxMywibmJmIjoxNzQ2MjE0NzEzLCJleHAiOjE3NDkyMTQ3MTMuNTQ2MDMxLCJzdWIiOiIzNTk2MDgiLCJzY29wZSI6WyJhdXRoZW50aWNhdGVkIl19.v1EOhdX9vnqcye8MAfbhdBkKqWkZZ0g_RpQFmoA1C9cpKja5qC-Z7tBHmNC2HG_VpKKY-5Lzj5plnN4ZboU-jfUDWNVEbo9X63ClumlVNLZNGKa5rcuc2VKwAnB7sG-f4N_Ov7hZ2KV8B22R5n9722BxqkCgk8hGT7IVuOhPf8inQTKa_ly1KrK8SmKBnyeOu43eXUV0_mBxdgU4BArWiuaK6QKT6XQjx5kNA9LfM9d_lqqRDVLLOpscQdBKLuhEw-ZvyHz95-2MXXNEwBG4JOf_zG00HJX1xefl1wBC7Y4zQACmMwpLQkCvyaABJXldD6yo7Mn7lVBAnFXAxs5sm3jLGHqwu_Y1uEYlPT2XvnqFzq54CcvJwMCG4tRipmS3dOSLB0-gx2lngjXuagQkafFEqYY9txMdEejF0CsyBqiJ0Yft6ah-qme769ytBRCQp6Y-YEwcJ6aT5paR54flOUFM5LhZ8f8ypuNt2wYz-6q8B1haPZ2jdRyc-65EFN4G_qATJJCAIc4Wa8Xx07COe_pcKCmMQ6TvhLXzDiqWo_QI-gK3jeCeCvG6CaRdVbIyafX16ZXNqQYn3Lwkpz08Rki7SdrQt-WEvMCbC8XzCWnAJFaCl3es6haVszcETRKSnOgjrKR6bwrufgSKQ74p94pcA6olTcxNKjvZEpAFGow",
+  FRED_API_KEY: "0108976b66b9b710f375d61296c78dcd"
 };
 
 // BLS API Service
@@ -173,6 +174,49 @@ export const DOLService = {
         data: [],
         success: false,
         error: `DOL API Error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      };
+    }
+  }
+};
+
+// FRED API Service
+export const FREDService = {
+  async fetchNJEconomicData(): Promise<APIResponse<any[]>> {
+    try {
+      const seriesIds = [
+        'CPIAUCSL', // Consumer Price Index
+        'PPIACO',   // Producer Price Index
+        'FEDFUNDS', // Federal Funds Rate
+        'GDP'       // Gross Domestic Product
+      ];
+
+      const response = await axios.get('https://api.stlouisfed.org/fred/series/observations', {
+        params: {
+          series_id: seriesIds.join(','),
+          api_key: API_CONFIG.FRED_API_KEY,
+          file_type: 'json',
+          observation_start: '2020-01-01',
+          observation_end: '2024-12-31'
+        }
+      });
+
+      if (response.data.observations) {
+        return {
+          data: response.data.observations,
+          success: true
+        };
+      } else {
+        return {
+          data: [],
+          success: false,
+          error: 'No FRED data found'
+        };
+      }
+    } catch (error) {
+      return {
+        data: [],
+        success: false,
+        error: `FRED API Error: ${error instanceof Error ? error.message : 'Unknown error'}`
       };
     }
   }
